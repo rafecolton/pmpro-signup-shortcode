@@ -177,14 +177,54 @@ function pmprosus_signup_shortcode($atts, $content=null, $code="")
 	
 	ob_start();
 	?>
-		<?php if(!empty($current_user->ID) && pmpro_hasMembershipLevel($level,$current_user->ID)) { ?>
-			<?php 
-				if(current_user_can("manage_options") )
-				{
-					?>
-					<div class="pmpro_message pmpro_alert"><?php _e('&#91;pmpro_signup&#93; Admin Only Shortcode Alert: You are logged in as an administrator and already have the membership level specified.', 'pmprosus'); ?></div>
-					<?php
-				}
+		<?php if(!empty($current_user->ID) && pmpro_hasMembershipLevel($level,$current_user->ID)) {
+        // TODO: find a way to do this with do_action - may not be possible with use of extract() above
+        if ( $alt_level ) { ?>
+          <form class="pmpro_form pmpro_signup_form" action="<?php echo pmpro_url("checkout"); ?>" method="post">
+            <?php
+              if(!empty($title))
+                echo '<h2>' . $title . '</h2>';
+            ?>
+            <?php
+              if(!empty($intro))
+                echo wpautop($intro);
+            ?>
+            <input type="hidden" id="level" name="level" value="<?php echo $alt_level; ?>" />
+            <input type="hidden" id="pmpro_signup_shortcode" name="pmpro_signup_shortcode" value=1>
+            <input type="hidden" name="pmprosus_referrer" value="<?php echo esc_attr($_SERVER['REQUEST_URI']);?>" />
+            <?php
+              if($redirect == 'referrer')
+                $redirect_to = $_SERVER['REQUEST_URI'];
+              elseif($redirect == 'account')
+                $redirect_to = get_permalink($pmpro_pages['account']);
+              elseif(empty($redirect) )
+                $redirect_to = '';
+              else
+                $redirect_to = $redirect;
+            ?>
+            <input type="hidden" name="redirect_to" value="<?php echo esc_attr($redirect_to);?>" />
+            <div>
+              <span id="pmpro_submit_span" >
+                <input type="hidden" name="submit-checkout" value="1" />
+                <input type="submit" class="pmpro_btn pmpro_btn-submit-checkout" value="<?php echo $submit_button; ?>" />
+              </span>
+            </div>
+            <?php do_action( 'pmpro_signup_form_before_login_link', $login ); ?>
+            <?php if(!empty($login) && empty($current_user->ID)) { ?>
+            <div class="login-link" style="text-align:center;">
+              <a href="<?php echo wp_login_url(get_permalink()); ?>"><?php _e('Log In','pmpro'); ?></a>
+            </div>
+            <?php } ?>
+            <?php do_action( 'pmpro_signup_form_after_submit' ); ?>
+          </form> <?php
+        } else {
+          if(current_user_can("manage_options") )
+          {
+            ?>
+            <div class="pmpro_message pmpro_alert"><?php _e('&#91;pmpro_signup&#93; Admin Only Shortcode Alert: You are logged in as an administrator and already have the membership level specified.', 'pmprosus'); ?></div>
+            <?php
+          }
+        }
 			?>
 		<?php } else { ?>
 		<form class="pmpro_form pmpro_signup_form" action="<?php echo pmpro_url("checkout"); ?>" method="post">
