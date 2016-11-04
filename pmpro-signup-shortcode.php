@@ -283,6 +283,7 @@ function pmprosus_signup_shortcode($atts, $content=null, $code="")
 					<input type="submit" class="pmpro_btn pmpro_btn-submit-checkout" value="<?php echo $submit_button; ?>" />
 				</span>
 			</div>
+      <?php do_action( 'pmpro_signup_form_before_login_link', $login ); ?>
 			<?php if(!empty($login) && empty($current_user->ID)) { ?>
 			<div class="login-link" style="text-align:center;">
 				<a href="<?php echo wp_login_url(get_permalink()); ?>"><?php _e('Log In','pmpro'); ?></a>
