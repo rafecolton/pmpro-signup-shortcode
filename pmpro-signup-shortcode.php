@@ -134,15 +134,16 @@ function pmprosus_signup_shortcode($atts, $content=null, $code="")
 		return "Paid Memberships Pro must be installed to use the pmpro_signup shortcode.";
 
 	//set defaults
-	extract(shortcode_atts(array(
-		'intro' => "0",
-		'level' => NULL,
-		'login' => true,
-		'redirect' => NULL,
-		'short' => NULL,
-		'submit_button' => __("Sign Up Now", 'pmprosus'),
-		'title' => NULL,
-	), $atts));
+  $defaults = apply_filters( 'pmpro_signup_shortcode_default_atts', array(
+    'intro' => "0",
+    'level' => NULL,
+    'login' => true,
+    'redirect' => NULL,
+    'short' => NULL,
+    'submit_button' => __("Sign Up Now", 'pmprosus'),
+    'title' => NULL,
+  ));
+  extract( shortcode_atts($defaults, $atts) );
 	
 		
 	// set title
