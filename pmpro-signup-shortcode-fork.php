@@ -1,12 +1,16 @@
 <?php
-/*
-Plugin Name: Paid Memberships Pro - Signup Shortcode
-Plugin URI: http://www.paidmembershipspro.com/wp/pmpro-signup-shortcode/
-Description: Shortcode for a simplified Membership Signup Form with options for email only signup and more.
-Version: .1
-Author: Stranger Studios
-Author URI: http://www.strangerstudios.com
-*/
+/**
+ * @link https://github.com/rafecolton/pmpro-signup-shortcode
+ * @package Paid Memberships Pro - Signup Shortcode <strong>(FORK)</strong>
+ * @author Rafe Colton <rcolton@himalayaninstitute.org>
+ *
+ * @wordpress-plugin
+ * Plugin Name: Paid Memberships Pro - Signup Shortcode <strong>(FORK)</strong>
+ * Plugin URI:  https://github.com/rafecolton/pmpro-signup-shortcode
+ * Description: (Fork of a) Shortcode for a simplified Membership Signup Form with options for email only signup and more.
+ * Version:     0.1.0
+ * Author URI:  https://github.com/rafecolton
+ */
 
 /*
   Use Email Address as Username and Generate a Password
